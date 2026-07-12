@@ -64,3 +64,17 @@ bool validate_luhn(long card_number)
 
     return (total_sum % 10 == 0);
 }
+
+
+ //Calculates total length.
+
+int get_card_length(long card_number)
+{
+    int length = 0;
+    while (card_number > 0)
+    {
+        length++;
+        card_number /= 10;
+    }
+    return length;
+}
