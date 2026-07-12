@@ -78,3 +78,39 @@ int get_card_length(long card_number)
     }
     return length;
 }
+
+
+int get_leading_digits(long card_number, int digit_count)
+{
+    // Scale downward until only the top 2 digits remain
+    while (card_number >= 100)
+    {
+        card_number /= 10;
+    }
+    return (int)card_number;
+}
+
+void classify_network(int length, int prefix)
+{
+    int primary_digit = prefix / 10;
+
+    // AMEX: 15 digits, starting with 34 or 37
+    if (length == 15 && (prefix == 34 || prefix == 37))
+    {
+        printf("AMEX\n");
+    }
+    // MASTERCARD: 16 digits, starting with 51, 52, 53, 54, or 55
+    else if (length == 16 && prefix >= 51 && prefix <= 55)
+    {
+        printf("MASTERCARD\n");
+    }
+    // VISA: 13 or 16 digits, starting with 4
+    else if ((length == 13 || length == 16) && primary_digit == 4)
+    {
+        printf("VISA\n");
+    }
+    else
+    {
+        printf("INVALID\n");
+    }
+}
