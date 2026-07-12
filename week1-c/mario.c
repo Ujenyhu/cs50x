@@ -26,7 +26,7 @@ int get_pyramid_height(void)
     {
         height = get_int("Height: ");
     }
-    while (height < minHeight || height > maxHeight)
+    while (height < minHeight || height > maxHeight);
 
     return height;
 }
