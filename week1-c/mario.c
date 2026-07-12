@@ -40,7 +40,7 @@ void render_pyramid(int height)
         int spaces = height - row;
         print_characters(' ', spaces);
 
-        //  Left pyramid segment
+        // Left pyramid segment
         print_characters('#', row);
 
         // The divider gap
