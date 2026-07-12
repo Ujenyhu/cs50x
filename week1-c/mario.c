@@ -36,6 +36,28 @@ void render_pyramid(int height)
 {
     for(int row = 1; row <= height; row++)
     {
+        // indentation spaces on the left start
+        int spaces = height - row;
+        print_characters(' ', spaces);
 
+        //  Left pyramid segment
+        print_characters('#', row);
+
+        // The divider gap
+        printf("  ");
+
+        // Right segment
+        print_characters('#', row);
+
+        printf("\n");
+    }
+}
+
+
+void print_characters(char character, int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        printf("%c", character);
     }
 }
