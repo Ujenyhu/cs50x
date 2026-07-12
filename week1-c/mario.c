@@ -5,7 +5,7 @@ int get_pyramid_height(void);
 void render_pyramid(int height);
 void print_characters(char character, int count);
 
-//Bind user's valid height values to [1, 8] inclusive
+//valid height should be [1, 8] inclusive
 const int minHeight = 1;
 const int maxHeight = 8;
 
