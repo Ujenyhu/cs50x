@@ -50,7 +50,7 @@ bool validate_luhn(long card_number)
         if (alternate)
         {
             int multiplied = current_digit * 2;
-            // Sum the digits of the product (e.g., 14 becomes 1 + 4 = 5)
+            // Sum the digits of the product
             total_sum += (multiplied % 10) + (multiplied / 10);
         }
         else
