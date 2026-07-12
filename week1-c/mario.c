@@ -5,7 +5,7 @@ int get_pyramid_height(void);
 void render_pyramid(int height);
 void print_characters(char character, int count);
 
-//valid height should be [1, 8] inclusive
+// valid height should be [1, 8] inclusive
 const int minHeight = 1;
 const int maxHeight = 8;
 
@@ -17,7 +17,6 @@ int main(void)
 
     return 0;
 }
-
 
 int get_pyramid_height(void)
 {
@@ -31,10 +30,9 @@ int get_pyramid_height(void)
     return height;
 }
 
-
 void render_pyramid(int height)
 {
-    for(int row = 1; row <= height; row++)
+    for (int row = 1; row <= height; row++)
     {
         // indentation spaces on the left start
         int spaces = height - row;
@@ -52,7 +50,6 @@ void render_pyramid(int height)
         printf("\n");
     }
 }
-
 
 void print_characters(char character, int count)
 {
