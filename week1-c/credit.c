@@ -86,6 +86,8 @@ bool validate_luhn(long card_number)
 int get_card_length(long card_number)
 {
     int length = 0;
+
+    // Drop digits from right to left to compute total length
     while (card_number > 0)
     {
         length++;
@@ -94,9 +96,6 @@ int get_card_length(long card_number)
     return length;
 }
 
-/**
- * Drops trailing numbers simultaneously to isolate the top 2 leading digits.
- */
 int get_prefix(long card_number, int card_length)
 {
     long divisor = 1;
