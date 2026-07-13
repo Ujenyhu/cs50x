@@ -24,7 +24,25 @@ const int VISA_PREFIX_MATCH = 4;
 bool validate_luhn(long card_number);
 int get_card_length(long card_number);
 int get_prefix(long card_number, int card_length);
-void classify_network(int length, int prefix);
+void classify_network(int length, int prefix, bool is_checksum_valid);
+
+int main(void)
+{
+    long card_number = get_long("Number: ");
+
+    int length = get_card_length(card_number);
+
+    // Validate the card against Luhn's mathematical checksum
+    bool is_checksum_valid = validate_luhn(card_number);
+
+    // Get the identifying prefix and resolve the network provider
+    int prefix = get_prefix(card_number, length);
+
+    // Pass metrics to the unified routing matrix
+    execute_network_routing(length, prefix, is_checksum_valid);
+
+    return 0;
+}
 
 int main(void)
 {
