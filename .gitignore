@@ -3,14 +3,8 @@ mario
 credit
 *.o
 
-# Ignore all compiled C binaries (files with no extension on Linux)
-*
-!*.*
-!*/
+# Ignore all files that do not have an extension, but keep directories
+^[^.]+$
 
-# Except keep makefiles or files with extensions
-!Makefile
-!*.c
-!*.h
-!*.md
-!*.txt
+# Make sure we don't accidentally ignore hidden git files
+!.git*
