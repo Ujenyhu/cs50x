@@ -123,8 +123,7 @@ void classify_network(int length, int prefix)
     {
         printf("MASTERCARD\n");
     }
-    else if ((length == VISA_LENGTH_SHORT || length == VISA_LENGTH_LONG) &&
-             first_digit == VISA_PREFIX_MATCH)
+    else if ((length == VISA_LENGTH_SHORT || length == VISA_LENGTH_LONG) && first_digit == VISA_PREFIX_MATCH)
     {
         printf("VISA\n");
     }
