@@ -100,8 +100,8 @@ int get_prefix(long card_number, int card_length)
 {
     long divisor = 1;
     int shifts_needed = card_length - 2;
-
-    // Build the scale factor needed to shift the number decimal place
+    
+    // Calculate the exact power of 10 needed to shift the number
     for (int i = 0; i < shifts_needed; i++)
     {
         divisor *= 10;
