@@ -100,7 +100,7 @@ int get_prefix(long card_number, int card_length)
 {
     long divisor = 1;
     int shifts_needed = card_length - 2;
-    
+
     // Calculate the exact power of 10 needed to shift the number
     for (int i = 0; i < shifts_needed; i++)
     {
@@ -110,12 +110,9 @@ int get_prefix(long card_number, int card_length)
     return (int)(card_number / divisor);
 }
 
-/**
- * Appears to matching rules to output specific network string literals.
- */
 void classify_network(int length, int prefix)
 {
-    // Extract the absolute first digit for Visa checking
+    // Extract the first digit for Visa checking
     int first_digit = prefix / 10;
 
     if (length == AMEX_LENGTH && (prefix == AMEX_PREFIX_1 || prefix == AMEX_PREFIX_2))
