@@ -13,11 +13,9 @@ int main(void)
     string word1 = get_string("Player 1: ");
     string word2 = get_string("Player 2: ");
 
-    // Compute the score of each word
     int score1 = compute_score(word1);
     int score2 = compute_score(word2);
 
-    // Print the winner
     if (score1 > score2)
     {
         printf("Player 1 wins!\n");
@@ -38,7 +36,6 @@ int compute_score(string word)
 {
     int score = 0;
 
-    // Iterate through the string until the null terminator is reached
     for (int i = 0, n = strlen(word); i < n; i++)
     {
         if (isupper(word[i]))
