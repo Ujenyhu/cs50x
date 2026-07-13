@@ -6,8 +6,8 @@
 
 /**
  * NOTE: This implementation uses a three call traversal strategy O(3N).
- * It complies with the assignment's modular function specifications. In production,
- * this should be refactored into a single-pass O(N) loop that calculates the letters,
+ * It complies with the assignment's function specifications. In production,
+ * this should be refactored into a single O(N) loop that calculates the letters,
  * words, and sentences simultaneously to avoid redundant memory scans.
  */
 
