@@ -1,7 +1,6 @@
 #include <cs50.h>
 #include <stdio.h>
 #include <stdbool.h>
-
 // Card constraints
 const int MIN_CARD_LENGTH = 13;
 const int MAX_CARD_LENGTH = 16;
