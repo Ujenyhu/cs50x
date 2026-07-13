@@ -152,24 +152,4 @@ void classify_network(int length, int prefix, bool is_checksum_valid)
             printf("VISA\n");
             return;
         }
-
-    // Extract the first digit for Visa checking
-    int first_digit = prefix / 10;
-
-    if (length == AMEX_LENGTH && (prefix == AMEX_PREFIX_1 || prefix == AMEX_PREFIX_2))
-    {
-        printf("AMEX\n");
-    }
-    else if (length == MC_LENGTH && prefix >= MC_PREFIX_MIN && prefix <= MC_PREFIX_MAX)
-    {
-        printf("MASTERCARD\n");
-    }
-    else if ((length == VISA_LENGTH_SHORT || length == VISA_LENGTH_LONG) && first_digit == VISA_PREFIX_MATCH)
-    {
-        printf("VISA\n");
-    }
-    else
-    {
-        printf("INVALID\n");
-    }
 }
