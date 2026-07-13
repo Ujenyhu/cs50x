@@ -73,10 +73,10 @@ bool validate_luhn(long card_number)
             total_sum += digit;
         }
 
-        // Toggle state back and forth to target alternate digits
+        // Flip the flag to process every other number
         process_alternate = !process_alternate;
 
-        // Drop the processed digit off the right side
+        // Drop the processed number off the right side
         card_number /= 10;
     }
 
