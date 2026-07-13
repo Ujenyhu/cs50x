@@ -1,6 +1,7 @@
 #include <cs50.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
+
 // Card constraints
 const int MIN_CARD_LENGTH = 13;
 const int MAX_CARD_LENGTH = 16;
@@ -106,7 +107,7 @@ int get_prefix(long card_number, int card_length)
         divisor *= 10;
     }
 
-    return (int)(card_number / divisor);
+    return (int) (card_number / divisor);
 }
 
 void classify_network(int length, int prefix)
@@ -122,7 +123,8 @@ void classify_network(int length, int prefix)
     {
         printf("MASTERCARD\n");
     }
-    else if ((length == VISA_LENGTH_SHORT || length == VISA_LENGTH_LONG) && first_digit == VISA_PREFIX_MATCH)
+    else if ((length == VISA_LENGTH_SHORT || length == VISA_LENGTH_LONG) &&
+             first_digit == VISA_PREFIX_MATCH)
     {
         printf("VISA\n");
     }
