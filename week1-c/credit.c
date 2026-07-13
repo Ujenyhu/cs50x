@@ -17,23 +17,6 @@ const int VISA_LENGTH_SHORT = 13;
 const int VISA_LENGTH_LONG = 16;
 const int VISA_PREFIX_MATCH = 4;
 
-const int MIN_CARD_LENGTH = 13;
-const int MAX_CARD_LENGTH = 16;
-
-// American Express routing values
-const int AMEX_LENGTH = 15;
-const int AMEX_PREFIX_1 = 34;
-const int AMEX_PREFIX_2 = 37;
-
-// MasterCard routing values
-const int MC_LENGTH = 16;
-const int MC_PREFIX_MIN = 51;
-const int MC_PREFIX_MAX = 55;
-
-// Visa routing values
-const int VISA_LENGTH_SHORT = 13;
-const int VISA_LENGTH_LONG = 16;
-const int VISA_PREFIX_MATCH = 4;
 
 bool validate_luhn(long card_number);
 int get_card_length(long card_number);
@@ -115,7 +98,7 @@ int get_prefix(long card_number, int card_length)
     return (int) (card_number / divisor);
 }
 
-void classify_network(int length, int prefix)
+void classify_network(int length, int prefix, bool is_checksum_valid)
 {
     // Extract the first digit for Visa checking
     int first_digit = prefix / 10;
