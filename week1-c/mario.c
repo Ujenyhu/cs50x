@@ -7,7 +7,7 @@ void print_characters(char character, int count);
 
 // valid height should be [1, 8] inclusive
 const int MIN_HEIGHT = 1;
-const int max_height = 8;
+const int MAX_HEIGHT = 8;
 
 int main(void)
 {
@@ -25,7 +25,7 @@ int get_pyramid_height(void)
     {
         height = get_int("Height: ");
     }
-    while (height < min_height || height > max_height);
+    while (height < MIN_HEIGHT || height > MAX_HEIGHT);
 
     return height;
 }
