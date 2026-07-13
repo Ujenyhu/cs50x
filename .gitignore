@@ -2,3 +2,15 @@ hello
 mario
 credit
 *.o
+
+# Ignore all compiled C binaries (files with no extension on Linux)
+*
+!*.*
+!*/
+
+# Except keep makefiles or files with extensions
+!Makefile
+!*.c
+!*.h
+!*.md
+!*.txt
