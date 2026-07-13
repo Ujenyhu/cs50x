@@ -2,72 +2,90 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+// Card constraints
+const int MIN_CARD_LENGTH = 13;
+const int MAX_CARD_LENGTH = 16;
+
+// American Express routing values
+const int AMEX_LENGTH = 15;
+const int AMEX_PREFIX_1 = 34;
+const int AMEX_PREFIX_2 = 37;
+
+// MasterCard routing values
+const int MC_LENGTH = 16;
+const int MC_PREFIX_MIN = 51;
+const int MC_PREFIX_MAX = 55;
+
+// Visa routing values
+const int VISA_LENGTH_SHORT = 13;
+const int VISA_LENGTH_LONG = 16;
+const int VISA_PREFIX_MATCH = 4;
+
 bool validate_luhn(long card_number);
 int get_card_length(long card_number);
-int get_leading_digits(long card_number, int digit_count);
+int get_prefix(long card_number, int card_length);
 void classify_network(int length, int prefix);
-
-// American Express uses 15-digit numbers, MasterCard uses 16-digit numbers, and Visa uses 13- and 16-digit numbers.
-const int min_length = 13;
-const int max_length =16;
 
 int main(void)
 {
     long card_number = get_long("Number: ");
 
-    // Validate Length
+    // Validate length
     int length = get_card_length(card_number);
-    if (length < min_length || length > max_length)
+    if (length < MIN_CARD_LENGTH || length > MAX_CARD_LENGTH)
     {
         printf("INVALID\n");
         return 0;
     }
 
-    // Luhn Validation
+    // Validate the card against Luhn's mathematical checksum
     if (!validate_luhn(card_number))
     {
         printf("INVALID\n");
         return 0;
     }
 
-    // Confirm network or card type by prefix
-    int prefix = get_leading_digits(card_number, length);
+    // Get the identifying prefix and resolve the network provider
+    int prefix = get_prefix(card_number, length);
     classify_network(length, prefix);
 
     return 0;
 }
 
-
 bool validate_luhn(long card_number)
 {
     int total_sum = 0;
-    bool alternate = false;
+    bool process_alternate = false;
 
     while (card_number > 0)
     {
-        int current_digit = card_number % 10;
+        // Extract the far right digit
+        int digit = card_number % 10;
 
-        if (alternate)
+        if (process_alternate)
         {
-            int multiplied = current_digit * 2;
-            // Sum the digits of the product
-            total_sum += (multiplied % 10) + (multiplied / 10);
+            int product = digit * 2;
+            // Add the individual digits of the product together
+            total_sum += (product % 10) + (product / 10);
         }
         else
         {
-            total_sum += current_digit;
+            total_sum += digit;
         }
 
-        alternate = !alternate;
+        // Toggle state back and forth to target alternate digits
+        process_alternate = !process_alternate;
+
+        // Drop the processed digit off the right side
         card_number /= 10;
     }
 
     return (total_sum % 10 == 0);
 }
 
-
- //Calculates total length.
-
+/**
+ * Calculates total count of digits present inside the input primitive.
+ */
 int get_card_length(long card_number)
 {
     int length = 0;
@@ -79,33 +97,40 @@ int get_card_length(long card_number)
     return length;
 }
 
-
-int get_leading_digits(long card_number, int digit_count)
+/**
+ * Drops trailing numbers simultaneously to isolate the top 2 leading digits.
+ */
+int get_prefix(long card_number, int card_length)
 {
-    // Scale downward until only the top 2 digits remain
-    while (card_number >= 100)
+    long divisor = 1;
+    int shifts_needed = card_length - 2;
+
+    // Build the scale factor needed to shift the number decimal place
+    for (int i = 0; i < shifts_needed; i++)
     {
-        card_number /= 10;
+        divisor *= 10;
     }
-    return (int)card_number;
+
+    return (int)(card_number / divisor);
 }
 
+/**
+ * Appears to matching rules to output specific network string literals.
+ */
 void classify_network(int length, int prefix)
 {
-    int primary_digit = prefix / 10;
+    // Extract the absolute first digit for Visa checking
+    int first_digit = prefix / 10;
 
-    // AMEX: 15 digits, starting with 34 or 37
-    if (length == 15 && (prefix == 34 || prefix == 37))
+    if (length == AMEX_LENGTH && (prefix == AMEX_PREFIX_1 || prefix == AMEX_PREFIX_2))
     {
         printf("AMEX\n");
     }
-    // MASTERCARD: 16 digits, starting with 51, 52, 53, 54, or 55
-    else if (length == 16 && prefix >= 51 && prefix <= 55)
+    else if (length == MC_LENGTH && prefix >= MC_PREFIX_MIN && prefix <= MC_PREFIX_MAX)
     {
         printf("MASTERCARD\n");
     }
-    // VISA: 13 or 16 digits, starting with 4
-    else if ((length == 13 || length == 16) && primary_digit == 4)
+    else if ((length == VISA_LENGTH_SHORT || length == VISA_LENGTH_LONG) && first_digit == VISA_PREFIX_MATCH)
     {
         printf("VISA\n");
     }
