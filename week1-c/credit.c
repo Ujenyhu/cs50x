@@ -83,9 +83,6 @@ bool validate_luhn(long card_number)
     return (total_sum % 10 == 0);
 }
 
-/**
- * Calculates total count of digits present inside the input primitive.
- */
 int get_card_length(long card_number)
 {
     int length = 0;
