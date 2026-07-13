@@ -98,8 +98,61 @@ int get_prefix(long card_number, int card_length)
     return (int) (card_number / divisor);
 }
 
+void execute_network_routing(int length, int prefix, bool is_checksum_valid)
+{
+    int first_digit = prefix / 10;
+
+    // Filter validation execution paths through a single gate
+    if (is_checksum_valid)
+    {
+        if (length == AMEX_LENGTH && (prefix == AMEX_PREFIX_1 || prefix == AMEX_PREFIX_2))
+        {
+            printf("AMEX\n");
+            return;
+        }
+
+        if (length == MC_LENGTH && prefix >= MC_PREFIX_MIN && prefix <= MC_PREFIX_MAX)
+        {
+            printf("MASTERCARD\n");
+            return;
+        }
+
+        if ((length == VISA_LENGTH_SHORT || length == VISA_LENGTH_LONG) && first_digit == VISA_PREFIX_MATCH)
+        {
+            printf("VISA\n");
+            return;
+        }
+    }
+
+    // Unified single point of failure output
+    printf("INVALID\n");
+}
+
 void classify_network(int length, int prefix, bool is_checksum_valid)
 {
+    // Extract the first digit for Visa checking
+    int first_digit = prefix / 10;
+
+    if (is_checksum_valid)
+    {
+        if (length == AMEX_LENGTH && (prefix == AMEX_PREFIX_1 || prefix == AMEX_PREFIX_2))
+        {
+            printf("AMEX\n");
+            return;
+        }
+
+        if (length == MC_LENGTH && prefix >= MC_PREFIX_MIN && prefix <= MC_PREFIX_MAX)
+        {
+            printf("MASTERCARD\n");
+            return;
+        }
+
+        if ((length == VISA_LENGTH_SHORT || length == VISA_LENGTH_LONG) && first_digit == VISA_PREFIX_MATCH)
+        {
+            printf("VISA\n");
+            return;
+        }
+
     // Extract the first digit for Visa checking
     int first_digit = prefix / 10;
 
