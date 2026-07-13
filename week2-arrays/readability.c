@@ -11,6 +11,15 @@
  * words, and sentences simultaneously to avoid redundant memory scans.
  */
 
+// Coleman-Liau formula constants
+const float COEFFICIENT_LETTERS = 0.0588f;
+const float COEFFICIENT_SENTENCES = 0.296f;
+const float FORMULA_CONSTANT = 15.8f;
+
+// Grade scoring limits
+const int MAX_GRADE_THRESHOLD = 16;
+const int MIN_GRADE_THRESHOLD = 1;
+
 int count_letters(string text);
 int count_words(string text);
 int count_sentences(string text);
@@ -20,13 +29,13 @@ int main(void)
 {
     string text = get_string("Text: ");
 
-    // handle empty input immediately to prevent division by zero
     if (strlen(text) == 0)
     {
         printf("Before Grade 1\n");
         return 0;
     }
 
+    // Count parameters in text
     int letters = count_letters(text);
     int words = count_words(text);
     int sentences = count_sentences(text);
@@ -34,11 +43,11 @@ int main(void)
     // Calculate the grade level
     int grade = calculate_coleman_liau(letters, words, sentences);
 
-    if (grade >= 16)
+    if (grade >= MAX_GRADE_THRESHOLD)
     {
         printf("Grade 16+\n");
     }
-    else if (grade < 1)
+    else if (grade < MIN_GRADE_THRESHOLD)
     {
         printf("Before Grade 1\n");
     }
@@ -54,7 +63,7 @@ int count_letters(string text)
 {
     int letters = 0;
 
-    // Loop to count alphabet characters
+    // count alphabet characters
     for (int i = 0, n = strlen(text); i < n; i++)
     {
         if (isalpha(text[i]))
@@ -67,19 +76,18 @@ int count_letters(string text)
 
 int count_words(string text)
 {
-    int space_count = 0;
+    int words = 0;
 
     // Count words by tracking spaces
     for (int i = 0, n = strlen(text); i < n; i++)
     {
-        if (text[i] == ' ')
+        // A word end is hit when the current char is data and the next is a delimiter or null
+        if (text[i] != ' ' && (text[i + 1] == ' ' || text[i + 1] == '\0'))
         {
-            space_count++;
+            words++;
         }
     }
-
-    // Account for the final word after the last space
-    return space_count + 1;
+    return words;
 }
 
 int count_sentences(string text)
@@ -99,12 +107,12 @@ int count_sentences(string text)
 
 int calculate_coleman_liau(int letters, int words, int sentences)
 {
-    // Calculate averages per 100 words using floating-point math
-    float L = ((float) letters / words) * 100;
-    float S = ((float) sentences / words) * 100;
+    // Calculate averages per 100 words
+    float L = ((float) letters / words) * 100.0f;
+    float S = ((float) sentences / words) * 100.0f;
 
     // Apply Coleman-Liau index formula
-    float index = 0.0588 * L - 0.296 * S - 15.8;
+    float index = (COEFFICIENT_LETTERS * L) - (COEFFICIENT_SENTENCES * S) - FORMULA_CONSTANT;
 
     return (int) round(index);
 }
