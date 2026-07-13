@@ -2,7 +2,21 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-// Card constraints
+// American Express rules
+const int AMEX_LENGTH = 15;
+const int AMEX_PREFIX_1 = 34;
+const int AMEX_PREFIX_2 = 37;
+
+// MasterCard rules
+const int MC_LENGTH = 16;
+const int MC_PREFIX_MIN = 51;
+const int MC_PREFIX_MAX = 55;
+
+// Visa rules
+const int VISA_LENGTH_SHORT = 13;
+const int VISA_LENGTH_LONG = 16;
+const int VISA_PREFIX_MATCH = 4;
+
 const int MIN_CARD_LENGTH = 13;
 const int MAX_CARD_LENGTH = 16;
 
@@ -37,38 +51,11 @@ int main(void)
 
     // Get the identifying prefix and resolve the network provider
     int prefix = get_prefix(card_number, length);
-
-    // Pass metrics to the unified routing matrix
-    execute_network_routing(length, prefix, is_checksum_valid);
+    classify_network(length, prefix, is_checksum_valid);
 
     return 0;
 }
 
-int main(void)
-{
-    long card_number = get_long("Number: ");
-
-    // Validate length
-    int length = get_card_length(card_number);
-    if (length < MIN_CARD_LENGTH || length > MAX_CARD_LENGTH)
-    {
-        printf("INVALID\n");
-        return 0;
-    }
-
-    // Validate the card against Luhn's mathematical checksum
-    if (!validate_luhn(card_number))
-    {
-        printf("INVALID\n");
-        return 0;
-    }
-
-    // Get the identifying prefix and resolve the network provider
-    int prefix = get_prefix(card_number, length);
-    classify_network(length, prefix);
-
-    return 0;
-}
 
 bool validate_luhn(long card_number)
 {
