@@ -5,9 +5,9 @@
 #include <string.h>
 
 /**
- * NOTE: This implementation uses a three call traversal strategy O(3N) to strictly
- * comply with the assignment's modular function specifications. In production,
- * this should be refactored into a single-pass O(N) loop that calculates letters,
+ * NOTE: This implementation uses a three call traversal strategy O(3N).
+ * It complies with the assignment's modular function specifications. In production,
+ * this should be refactored into a single-pass O(N) loop that calculates the letters,
  * words, and sentences simultaneously to avoid redundant memory scans.
  */
 
@@ -20,14 +20,13 @@ int main(void)
 {
     string text = get_string("Text: ");
 
-    // Guard clause: handle empty input immediately to prevent division by zero
+    // handle empty input immediately to prevent division by zero
     if (strlen(text) == 0)
     {
         printf("Before Grade 1\n");
         return 0;
     }
 
-    // Count parameters in text
     int letters = count_letters(text);
     int words = count_words(text);
     int sentences = count_sentences(text);
@@ -35,7 +34,6 @@ int main(void)
     // Calculate the grade level
     int grade = calculate_coleman_liau(letters, words, sentences);
 
-    // Output grade boundaries matching instructions
     if (grade >= 16)
     {
         printf("Grade 16+\n");
@@ -56,7 +54,7 @@ int count_letters(string text)
 {
     int letters = 0;
 
-    // Loop through string to count alphabet characters
+    // Loop to count alphabet characters
     for (int i = 0, n = strlen(text); i < n; i++)
     {
         if (isalpha(text[i]))
