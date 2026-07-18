@@ -56,7 +56,7 @@ bool is_valid_key(string s)
         // Map character case-insensitively to its 0-25 absolute position
         int alphabet_index = tolower(key[i]) - 'a';
 
-        // Detect duplication mutations within the key string
+        // Detect duplicate within the key string
         letter_counts[alphabet_index]++;
         if (letter_counts[alphabet_index] > 1)
         {
