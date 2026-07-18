@@ -74,8 +74,7 @@ string validate_key(string key)
 */
 string encrypt_text(string plaintext, string key)
 {
-    int n = strlen(plaintext);
-    for(int i = 0; i < n; i++)
+    for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
         char target = plaintext[i];
 
