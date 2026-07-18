@@ -70,7 +70,7 @@ bool is_valid_key(string key)
 
 void encrypt_text(string plaintext, string key)
 {
-    n = strlen(plaintext);
+    int n = strlen(plaintext);
     for(int i = 0; i < n; i++)
     {
         char target = plaintext[i];
