@@ -13,12 +13,12 @@ const int KEY_LENGTH = 26;
 //validation const (An enum would be largely preferred but to avoid going out of the course scope, this will do)
 const int VALID_KEY = 0;
 const int ERROR_INVALID_LENGTH = 1;
-const int ERROR_NON_ALPHA = 2;
+const int ERROR_NOT_ALPHA = 2;
 const int ERROR_DUPLICATE = 3;
 
 
 int validate_key(string key);
-string encrypt_text(string plaintext, string key);
+void encrypt_text(string plaintext, string key);
 
 int main(int argc, string argv[])
 {
@@ -30,7 +30,7 @@ int main(int argc, string argv[])
 
     switch (validate_key(argv[1]))
     {
-        case ERR_INVALID_LENGTH:
+        case ERROR_INVALID_LENGTH:
             printf("Key must be %d characters.\n", KEY_LENGTH);
             return STATUS_ERROR;
 
@@ -48,8 +48,8 @@ int main(int argc, string argv[])
 
     string plaintext = get_string("plaintext:  ");
 
-    string ciphertext = encrypt_text(plaintext, argv[1]);
-    printf("ciphertext: %s\n", ciphertext);
+    encrypt_text(plaintext, argv[1]);
+    printf("ciphertext: %s\n", plaintext);
 
     return STATUS_SUCCESS;
 }
@@ -69,7 +69,7 @@ int validate_key(string key)
     {
         if (!isalpha(key[i]))
         {
-            return ERROR_NON_ALPHA;
+            return ERROR_NOT_ALPHA;
         }
 
         // Map character TO its 0-25 absolute position (Case-insentive)
