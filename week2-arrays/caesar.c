@@ -12,6 +12,7 @@ const int STATUS_ERROR = 1;
 const int ALPHABET_SIZE = 26;
 
 bool only_digits(string text);
+void encrypt_text(string plaintext, int key)
 
 int main(int argc, string argv[])
 {
@@ -65,13 +66,13 @@ void encrypt_text(string plaintext, int key)
         if (isupper(c))
         {
             // Convert ASCII to 0-25 base, shift dynamically, restore ASCII offset
-            char shifted = ((c - 'A') + key) % ALPHABET_SIZE + 'A';
+            char shifted = ((c - 'A') + shift) % ALPHABET_SIZE + 'A';
             printf("%c", shifted);
         }
         else if (islower(c))
         {
             // Convert ASCII to 0-25 base, shift dynamically, restore ASCII offset
-            char shifted = ((c - 'a') + key) % ALPHABET_SIZE + 'a';
+            char shifted = ((c - 'a') + shift) % ALPHABET_SIZE + 'a';
             printf("%c", shifted);
         }
         else
