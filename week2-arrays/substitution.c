@@ -78,7 +78,7 @@ void encrypt_text(string plaintext, string key)
         /*
         ** Find 0-indexed position
         ** look up key for substitution
-        ** enfoce case insensitivity
+        ** enfoce case-sensitivity. Must be in the smae case as the plaintext
         ** Maintain symbols, punctuation, and white spaces. No mutation
         */
         if (isupper(target))
