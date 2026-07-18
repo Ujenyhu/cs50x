@@ -35,7 +35,6 @@ int main(int argc, string argv[])
 }
 
 //Validates that a string buffer contains exclusively numeric characters.
-
 bool only_digits(string s)
 {
     for (int i = 0, n = strlen(s); i < n; i++)
