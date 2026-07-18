@@ -95,7 +95,7 @@ int validate_key(string key)
 ** enfoce case-sensitivity. Must be in the smae case as the plaintext
 ** Maintain symbols, punctuation, and white spaces. No mutation
 */
-string encrypt_text(string plaintext, string key)
+void encrypt_text(string plaintext, string key)
 {
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
@@ -112,5 +112,4 @@ string encrypt_text(string plaintext, string key)
             plaintext[i] =  tolower(key[index]);
         }
     }
-    return plaintext;
 }
