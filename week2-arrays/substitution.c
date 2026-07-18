@@ -12,9 +12,9 @@ const int KEY_LENGTH = 26;
 
 //validation const (An enum would be largely preferred but to avoid going out of the course scope, this will do)
 const int VALID_KEY = 0;
-const int ERR_INVALID_LENGTH = 1;
-const int ERR_NON_ALPHA = 2;
-const int ERR_DUPLICATE = 3;
+const int ERROR_INVALID_LENGTH = 1;
+const int ERROR_NON_ALPHA = 2;
+const int ERROR_DUPLICATE = 3;
 
 
 int validate_key(string key);
@@ -28,50 +28,22 @@ int main(int argc, string argv[])
         return STATUS_ERROR;
     }
 
-    int key_status = validate_key(argv[1]);
-    if (key_status != KEY_OK)
+    switch (validate_key(argv[1]))
     {
-        switch (key_status)
-        {
-            case ERR_INVALID_LENGTH:
-                printf("Key must contain 26 characters.\n");
-                break;
-            case ERR_NON_ALPHA:
-                printf("Key must contain only alphabetical characters.\n");
-                break;
-            case ERR_DUPLICATE:
-                printf("Key must not contain duplicate characters.\n");
-                break;
-        }
-        return STATUS_ERROR;
-    }
+        case ERR_INVALID_LENGTH:
+            printf("Key must be %d characters.\n", KEY_LENGTH);
+            return STATUS_ERROR;
 
-    // 3. Acquire text payload
-    string plaintext = get_string("plaintext:  ");
+        case ERROR_NOT_ALPHA:
+            printf("Key must contain only alphabetical characters.\n");
+            return STATUS_ERROR;
 
-    // 4. Main owns the console layout wrappers entirely
-    string ciphertext = encrypt_text(plaintext, argv[1]);
-    printf("ciphertext: %s\n", ciphertext);
+        case ERROR_DUPLICATE:
+            printf("Key must not contain duplicate characters.\n");
+            return STATUS_ERROR;
 
-    return STATUS_SUCCESS;
-}
-
-string validate_key(string key);
-string encrypt_text(string plaintext, string key);
-
-int main(int argc, string argv[])
-{
-    if (argc != 2)
-    {
-        printf("Usage: ./caesar key\n");
-        return STATUS_ERROR;
-    }
-
-    string error_message = validate_key(argv[1]);
-    if (error_message != NULL)
-    {
-        printf("%s", error_message);
-        return STATUS_ERROR;
+        case VALID_KEY:
+            break; // Proceed with the program
     }
 
     string plaintext = get_string("plaintext:  ");
@@ -87,7 +59,7 @@ int validate_key(string key)
 {
     if (strlen(key) != KEY_LENGTH)
     {
-        return ERR_INVALID_LENGTH;
+        return ERROR_INVALID_LENGTH;
     }
 
     // Track duplicates
@@ -97,7 +69,7 @@ int validate_key(string key)
     {
         if (!isalpha(key[i]))
         {
-            return ERR_NON_ALPHA;
+            return ERROR_NON_ALPHA;
         }
 
         // Map character TO its 0-25 absolute position (Case-insentive)
@@ -106,13 +78,13 @@ int validate_key(string key)
         // Detect duplicate within the key string
         if (letter_seen[alphabet_index])
         {
-            return ERR_DUPLICATE;
+            return ERROR_DUPLICATE;
         }
 
         letter_seen[alphabet_index] = true;
     }
 
-    return KEY_OK;
+    return VALID_KEY;
 }
 
 
