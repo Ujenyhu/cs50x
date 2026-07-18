@@ -57,7 +57,7 @@ bool only_digits(string s)
 
 void encrypt_text(string plaintext, int key)
 {
-    // Calculate the absolute shift position once to handle large keys (i.e. 27 % 26 = 1)
+    // Calculate the absolute shift position once to handle keys > 26
     int shift = key % ALPHABET_SIZE;
 
     for (int i = 0, n = strlen(plaintext); i < n; i++)
