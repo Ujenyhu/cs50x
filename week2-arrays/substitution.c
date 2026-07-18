@@ -30,7 +30,7 @@ int main(int argc, string argv[])
     string plaintext = get_string("plaintext:  ");
 
     printf("ciphertext: ");
-    encrypt_text(plaintext, key);
+    encrypt_text(plaintext, argv[1]);
     printf("\n");
 
     return STATUS_SUCCESS;
@@ -66,4 +66,35 @@ bool is_valid_key(string s)
     }
 
     return true;
+}
+
+void encrypt_text(string plaintext, int key)
+{
+    n = strlen(plaintext);
+    for(int i = 0; i < n; i++)
+    {
+        char target = plaintext[i];
+
+
+        /*
+        ** Find 0-indexed position
+        ** look up key for substitution
+        ** enfoce case insensitivity
+        ** Maintain symbols, punctuation, and white spaces. No mutation
+        */
+        if (isupper(target))
+        {
+            int index = target - 'A';
+            printf("%c", toupper(key[index]));
+        }
+        else if (islower(target))
+        {
+            int index = target - 'a';
+            printf("%c", tolower(key[index]));
+        }
+        else
+        {
+            printf("%c", target);
+        }
+    }
 }
