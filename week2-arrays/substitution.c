@@ -11,7 +11,7 @@ const int STATUS_ERROR = 1;
 const int KEY_LENGTH = 26;
 
 string validate_key(string key);
-void encrypt_text(string plaintext, string key);
+string encrypt_text(string plaintext, string key);
 
 int main(int argc, string argv[])
 {
@@ -20,7 +20,6 @@ int main(int argc, string argv[])
         printf("Usage: ./caesar key\n");
         return STATUS_ERROR;
     }
-
 
     string error_message = validate_key(argv[1]);
     if (error_message != NULL)
@@ -31,9 +30,8 @@ int main(int argc, string argv[])
 
     string plaintext = get_string("plaintext:  ");
 
-    printf("ciphertext: ");
-    encrypt_text(plaintext, argv[1]);
-    printf("\n");
+    string ciphertext = encrypt_text(plaintext, argv[1]);
+    printf("ciphertext: %s\n", ciphertext);
 
     return STATUS_SUCCESS;
 }
@@ -67,32 +65,30 @@ string validate_key(string key)
     return NULL;
 }
 
-void encrypt_text(string plaintext, string key)
+
+/*
+** Find 0-indexed position
+** look up key for substitution
+** enfoce case-sensitivity. Must be in the smae case as the plaintext
+** Maintain symbols, punctuation, and white spaces. No mutation
+*/
+string encrypt_text(string plaintext, string key)
 {
     int n = strlen(plaintext);
     for(int i = 0; i < n; i++)
     {
         char target = plaintext[i];
 
-        /*
-        ** Find 0-indexed position
-        ** look up key for substitution
-        ** enfoce case-sensitivity. Must be in the smae case as the plaintext
-        ** Maintain symbols, punctuation, and white spaces. No mutation
-        */
         if (isupper(target))
         {
             int index = target - 'A';
-            printf("%c", toupper(key[index]));
+            plaintext[i] = toupper(key[index]);
         }
         else if (islower(target))
         {
             int index = target - 'a';
-            printf("%c", tolower(key[index]));
-        }
-        else
-        {
-            printf("%c", target);
+            plaintext[i] =  tolower(key[index]);
         }
     }
+    return plaintext;
 }
