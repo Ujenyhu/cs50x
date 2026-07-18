@@ -11,7 +11,7 @@ const int STATUS_ERROR = 1;
 const int KEY_LENGTH = 26;
 
 bool is_valid_key(string s);
-void encrypt_text(string plaintext, int key);
+void encrypt_text(string plaintext, string key);
 
 int main(int argc, string argv[])
 {
@@ -68,7 +68,7 @@ bool is_valid_key(string s)
     return true;
 }
 
-void encrypt_text(string plaintext, int key)
+void encrypt_text(string plaintext, string key)
 {
     n = strlen(plaintext);
     for(int i = 0; i < n; i++)
