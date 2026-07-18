@@ -7,15 +7,15 @@
 const int STATUS_SUCCESS = 0;
 const int STATUS_ERROR = 1;
 
-//Cryptographic const
+// Cryptographic const
 const int KEY_LENGTH = 26;
 
-//validation const (An enum would be largely preferred but to avoid going out of the course scope, this will do)
+// validation const (An enum would be largely preferred but to avoid going out of the course scope,
+// this will do)
 const int VALID_KEY = 0;
 const int ERROR_INVALID_LENGTH = 1;
 const int ERROR_NOT_ALPHA = 2;
 const int ERROR_DUPLICATE = 3;
-
 
 int validate_key(string key);
 void substitute_text(string plaintext, string key);
@@ -54,7 +54,6 @@ int main(int argc, string argv[])
     return STATUS_SUCCESS;
 }
 
-
 int validate_key(string key)
 {
     if (strlen(key) != KEY_LENGTH)
@@ -87,8 +86,6 @@ int validate_key(string key)
     return VALID_KEY;
 }
 
-
-
 /*
 ** Find 0-indexed position
 ** look up key for substitution
@@ -109,7 +106,7 @@ void substitute_text(string plaintext, string key)
         else if (islower(target))
         {
             int index = target - 'a';
-            plaintext[i] =  tolower(key[index]);
+            plaintext[i] = tolower(key[index]);
         }
     }
 }
