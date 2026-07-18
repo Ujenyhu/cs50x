@@ -42,6 +42,38 @@ int main(int argc, string argv[])
     return STATUS_SUCCESS;
 }
 
+
+int validate_key(string key)
+{
+    if (strlen(key) != KEY_LENGTH)
+    {
+        return ERR_INVALID_LENGTH;
+    }
+
+    // Track duplicates
+    bool letter_seen[26] = {false};
+
+    for (int i = 0; i < KEY_LENGTH; i++)
+    {
+        if (!isalpha(key[i]))
+        {
+            return ERR_NON_ALPHA;
+        }
+
+        int alphabet_index = tolower(key[i]) - 'a';
+
+        // If the letter has already been flagged, we hit a duplicate mutation
+        if (letter_seen[alphabet_index])
+        {
+            return ERR_DUPLICATE;
+        }
+
+        letter_seen[alphabet_index] = true;
+    }
+
+    return KEY_OK;
+}
+
 string validate_key(string key)
 {
     if(strlen(key) != KEY_LENGTH)
