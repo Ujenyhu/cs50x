@@ -64,4 +64,6 @@ bool is_valid_key(string s)
             return false;
         }
     }
+
+    return true;
 }
