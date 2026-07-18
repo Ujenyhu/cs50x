@@ -16,6 +16,46 @@ const int ERR_INVALID_LENGTH = 1;
 const int ERR_NON_ALPHA = 2;
 const int ERR_DUPLICATE = 3;
 
+
+int validate_key(string key);
+string encrypt_text(string plaintext, string key);
+
+int main(int argc, string argv[])
+{
+    if (argc != 2)
+    {
+        printf("Usage: ./substitution key\n");
+        return STATUS_ERROR;
+    }
+
+    int key_status = validate_key(argv[1]);
+    if (key_status != KEY_OK)
+    {
+        switch (key_status)
+        {
+            case ERR_INVALID_LENGTH:
+                printf("Key must contain 26 characters.\n");
+                break;
+            case ERR_NON_ALPHA:
+                printf("Key must contain only alphabetical characters.\n");
+                break;
+            case ERR_DUPLICATE:
+                printf("Key must not contain duplicate characters.\n");
+                break;
+        }
+        return STATUS_ERROR;
+    }
+
+    // 3. Acquire text payload
+    string plaintext = get_string("plaintext:  ");
+
+    // 4. Main owns the console layout wrappers entirely
+    string ciphertext = encrypt_text(plaintext, argv[1]);
+    printf("ciphertext: %s\n", ciphertext);
+
+    return STATUS_SUCCESS;
+}
+
 string validate_key(string key);
 string encrypt_text(string plaintext, string key);
 
