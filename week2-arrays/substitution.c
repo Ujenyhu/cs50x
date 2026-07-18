@@ -53,7 +53,7 @@ bool is_valid_key(string key)
             return false;
         }
 
-        // Map character case-insensitively to its 0-25 absolute position
+        // Map character TO its 0-25 absolute position (Case-insentive)
         int alphabet_index = tolower(key[i]) - 'a';
 
         // Detect duplicate within the key string
