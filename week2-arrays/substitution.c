@@ -75,7 +75,6 @@ void encrypt_text(string plaintext, int key)
     {
         char target = plaintext[i];
 
-
         /*
         ** Find 0-indexed position
         ** look up key for substitution
