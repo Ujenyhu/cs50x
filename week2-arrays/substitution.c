@@ -51,7 +51,7 @@ int validate_key(string key)
     }
 
     // Track duplicates
-    bool letter_seen[26] = {false};
+    bool letter_seen[KEY_LENGTH] = {false};
 
     for (int i = 0; i < KEY_LENGTH; i++)
     {
@@ -60,9 +60,10 @@ int validate_key(string key)
             return ERR_NON_ALPHA;
         }
 
+        // Map character TO its 0-25 absolute position (Case-insentive)
         int alphabet_index = tolower(key[i]) - 'a';
 
-        // If the letter has already been flagged, we hit a duplicate mutation
+        // Detect duplicate within the key string
         if (letter_seen[alphabet_index])
         {
             return ERR_DUPLICATE;
@@ -74,34 +75,6 @@ int validate_key(string key)
     return KEY_OK;
 }
 
-string validate_key(string key)
-{
-    if(strlen(key) != KEY_LENGTH)
-    {
-        return ("Key must be %d characters.\n", KEY_LENGTH);
-    }
-
-    int letter_counts[KEY_LENGTH] = {0};
-    for(int i = 0; i < KEY_LENGTH; i++)
-    {
-        if (!isalpha(key[i]))
-        {
-            return "Key must contain only alphabetical characters.\n";
-        }
-
-        // Map character TO its 0-25 absolute position (Case-insentive)
-        int alphabet_index = tolower(key[i]) - 'a';
-
-        // Detect duplicate within the key string
-        letter_counts[alphabet_index]++;
-        if (letter_counts[alphabet_index] > 1)
-        {
-            return "Key must not contain duplicate characters.\n";
-        }
-    }
-
-    return NULL;
-}
 
 
 /*
