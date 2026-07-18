@@ -42,4 +42,10 @@ bool is_valid_key(string s)
     {
         printf("Key must be %d characters.\n", KEY_LENGTH);
     }
+
+    int letter_counts[KEY_LENGTH] = {0};
+    for(int i = 0; i < KEY_LENGTH; i++)
+    {
+
+    }
 }
