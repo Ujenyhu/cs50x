@@ -66,19 +66,19 @@ void encrypt_text(string plaintext, int key)
 
         if (isupper(c))
         {
-            // Map ASCII to 0-25 relative offset, shift, wrap, and re-apply uppercase context
+            // ASCII to 0-25 relative offset for uppercase
             char shifted = ((c - 'A') + shift) % ALPHABET_SIZE + 'A';
             printf("%c", shifted);
         }
         else if (islower(c))
         {
-            // Map ASCII to 0-25 relative offset, shift, wrap, and re-apply lowercase context
+            // Map ASCII to 0-25 relative offset for lowercase
             char shifted = ((c - 'a') + shift) % ALPHABET_SIZE + 'a';
             printf("%c", shifted);
         }
         else
         {
-            // Non-alphabetical symbols flow through completely un-mutated
+            // Non alphabets shows completely unecrypted
             printf("%c", c);
         }
     }
