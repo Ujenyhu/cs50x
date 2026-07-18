@@ -9,3 +9,32 @@ const int STATUS_ERROR = 1;
 
 //Cryptographic const
 const int KEY_LENGTH = 26;
+
+bool is_valid_key(string s);
+void encrypt_text(string plaintext, int key);
+
+int main(int argc, string argv[])
+{
+    if (argc != 2)
+    {
+        printf("Usage: ./caesar key\n");
+        return STATUS_ERROR;
+    }
+
+
+    if (!is_valid_key(argv[1]))
+    {
+        return STATUS_ERROR;
+    }
+
+    //Convert the string argument to an integer primitive
+    int key = atoi(argv[1]);
+
+    string plaintext = get_string("plaintext:  ");
+
+    printf("ciphertext: ");
+    encrypt_text(plaintext, key);
+    printf("\n");
+
+    return STATUS_SUCCESS;
+}
