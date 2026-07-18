@@ -15,14 +15,8 @@ void encrypt_text(string plaintext, int key);
 
 int main(int argc, string argv[])
 {
-    if (argc != 2)
-    {
-        printf("Usage: ./caesar key\n");
-        return STATUS_ERROR;
-    }
-
-    // ensure the string is strictly numeric characters
-    if (!only_digits(argv[1]))
+    // ensure the string is strictly numeric characters and arg count > 2
+    if (argc != 2 || !only_digits(argv[1]))
     {
         printf("Usage: ./caesar key\n");
         return STATUS_ERROR;
