@@ -59,6 +59,7 @@ void encrypt_text(string plaintext, int key)
 {
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
+        int shift = n % 26;
         char c = plaintext[i];
 
         if (isupper(c))
