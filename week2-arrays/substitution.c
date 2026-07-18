@@ -10,7 +10,7 @@ const int STATUS_ERROR = 1;
 //Cryptographic const
 const int KEY_LENGTH = 26;
 
-bool is_valid_key(string key);
+string validate_key(string key);
 void encrypt_text(string plaintext, string key);
 
 int main(int argc, string argv[])
@@ -22,8 +22,10 @@ int main(int argc, string argv[])
     }
 
 
-    if (!is_valid_key(argv[1]))
+    string error_message = validate_key(argv[1]);
+    if (error_message != NULL)
     {
+        printf("%s", error_message);
         return STATUS_ERROR;
     }
 
@@ -36,12 +38,11 @@ int main(int argc, string argv[])
     return STATUS_SUCCESS;
 }
 
-bool is_valid_key(string key)
+string validate_key(string key)
 {
     if(strlen(key) != KEY_LENGTH)
     {
-        printf("Key must be %d characters.\n", KEY_LENGTH);
-        return false;
+        return ("Key must be %d characters.\n", KEY_LENGTH);
     }
 
     int letter_counts[KEY_LENGTH] = {0};
@@ -49,8 +50,7 @@ bool is_valid_key(string key)
     {
         if (!isalpha(key[i]))
         {
-            printf("Key must contain only alphabetical characters.\n");
-            return false;
+            return "Key must contain only alphabetical characters.\n";
         }
 
         // Map character TO its 0-25 absolute position (Case-insentive)
@@ -60,12 +60,11 @@ bool is_valid_key(string key)
         letter_counts[alphabet_index]++;
         if (letter_counts[alphabet_index] > 1)
         {
-            printf("Key must not contain duplicate characters.\n");
-            return false;
+            return "Key must not contain duplicate characters.\n";
         }
     }
 
-    return true;
+    return NULL;
 }
 
 void encrypt_text(string plaintext, string key)
