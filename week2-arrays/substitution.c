@@ -35,3 +35,11 @@ int main(int argc, string argv[])
 
     return STATUS_SUCCESS;
 }
+
+bool is_valid_key(string s)
+{
+    if(strlen(s) != KEY_LENGTH)
+    {
+        printf($"Key must be {KEY_LENGTH} characters.")
+    }
+}
