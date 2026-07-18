@@ -18,7 +18,7 @@ const int ERROR_DUPLICATE = 3;
 
 
 int validate_key(string key);
-string substitute_text(string plaintext, string key);
+void substitute_text(string plaintext, string key);
 
 int main(int argc, string argv[])
 {
@@ -48,8 +48,8 @@ int main(int argc, string argv[])
 
     string plaintext = get_string("plaintext:  ");
 
-    string ciphertext = substitute_text(plaintext, argv[1]);
-    printf("ciphertext: %s\n", ciphertext);
+    substitute_text(plaintext, argv[1]);
+    printf("ciphertext: %s\n", plaintext);
 
     return STATUS_SUCCESS;
 }
@@ -95,12 +95,12 @@ int validate_key(string key)
 ** enfoce case-sensitivity. Must be in the smae case as the plaintext
 ** Maintain symbols, punctuation, and white spaces. No mutation
 */
-string encrypt_text(string plaintext, string key)
+void substitute_text(string plaintext, string key)
 {
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
         char target = plaintext[i];
-        
+
         if (isupper(target))
         {
             int index = target - 'A';
@@ -112,6 +112,4 @@ string encrypt_text(string plaintext, string key)
             plaintext[i] =  tolower(key[index]);
         }
     }
-
-    return plaintext;
 }
