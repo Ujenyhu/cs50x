@@ -41,6 +41,7 @@ bool is_valid_key(string key)
     if(strlen(key) != KEY_LENGTH)
     {
         printf("Key must be %d characters.\n", KEY_LENGTH);
+        return false;
     }
 
     int letter_counts[KEY_LENGTH] = {0};
