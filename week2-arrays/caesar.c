@@ -4,80 +4,82 @@
 #include <stdlib.h>
 #include <string.h>
 
-// status codes
+// Status Codes
 const int STATUS_SUCCESS = 0;
 const int STATUS_ERROR = 1;
 
-// Cryptographic constants
 const int ALPHABET_SIZE = 26;
 
-bool only_digits(string text);
-void encrypt_text(string plaintext, int key)
+bool only_digits(string s);
+void encrypt_text(string plaintext, int key);
 
 int main(int argc, string argv[])
 {
-    // Only one command line is expected
-    if(argc != 2)
+    if (argc != 2)
     {
         printf("Usage: ./caesar key\n");
         return STATUS_ERROR;
     }
 
-    if(!only_digits(argv[1]))
+    // ensure the string is strictly numeric characters
+    if (!only_digits(argv[1]))
     {
         printf("Usage: ./caesar key\n");
         return STATUS_ERROR;
     }
 
-    // Convert ASCII argument to integer primitive
+    //Convert the string argument to an integer primitive
     int key = atoi(argv[1]);
 
-    string plaintext = get_string("plaintext: ");
+    string plaintext = get_string("plaintext:  ");
 
     printf("ciphertext: ");
-    encrypt_and_print_text(plaintext, key);
+    encrypt_text(plaintext, key);
     printf("\n");
 
     return STATUS_SUCCESS;
 }
 
+//Validates that a string buffer contains exclusively numeric characters.
 
 bool only_digits(string s)
 {
-    for(int i = 0, n = strlen(s); i < n; i++)
+    for (int i = 0, n = strlen(s); i < n; i++)
     {
-        if(!isdigit(s[i]))
+        if (!isdigit(s[i]))
         {
             return false;
         }
     }
-
     return true;
 }
 
 
 void encrypt_text(string plaintext, int key)
 {
+    // Calculate the absolute shift position once to handle large keys (i.e. 27 % 26 = 1)
+    int shift = key % ALPHABET_SIZE;
+
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
-        int shift = n % 26;
         char c = plaintext[i];
 
         if (isupper(c))
         {
-            // Convert ASCII to 0-25 base, shift dynamically, restore ASCII offset
+            // Map ASCII to 0-25 relative offset, shift, wrap, and re-apply uppercase context
             char shifted = ((c - 'A') + shift) % ALPHABET_SIZE + 'A';
             printf("%c", shifted);
         }
         else if (islower(c))
         {
-            // Convert ASCII to 0-25 base, shift dynamically, restore ASCII offset
+            // Map ASCII to 0-25 relative offset, shift, wrap, and re-apply lowercase context
             char shifted = ((c - 'a') + shift) % ALPHABET_SIZE + 'a';
             printf("%c", shifted);
         }
         else
         {
-            // Pass-through layer for spaces, numbers, and punctuation
+            // Non-alphabetical symbols flow through completely un-mutated
             printf("%c", c);
         }
     }
+}
