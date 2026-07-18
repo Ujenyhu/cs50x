@@ -52,5 +52,16 @@ bool is_valid_key(string s)
             printf("Key must contain only alphabetical characters.\n");
             return false;
         }
+
+        // Map character case-insensitively to its 0-25 absolute position
+        int alphabet_index = tolower(key[i]) - 'a';
+
+        // Detect duplication mutations within the key string
+        letter_counts[alphabet_index]++;
+        if (letter_counts[alphabet_index] > 1)
+        {
+            printf("Key must not contain duplicate characters.\n");
+            return false;
+        }
     }
 }
