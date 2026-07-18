@@ -10,6 +10,12 @@ const int STATUS_ERROR = 1;
 //Cryptographic const
 const int KEY_LENGTH = 26;
 
+//validation const (An enum would be largely preferred but to avoid going out of the course scope, this will do)
+const int VALID_KEY = 0;
+const int ERR_INVALID_LENGTH = 1;
+const int ERR_NON_ALPHA = 2;
+const int ERR_DUPLICATE = 3;
+
 string validate_key(string key);
 string encrypt_text(string plaintext, string key);
 
