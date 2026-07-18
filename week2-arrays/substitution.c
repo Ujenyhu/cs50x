@@ -10,7 +10,7 @@ const int STATUS_ERROR = 1;
 //Cryptographic const
 const int KEY_LENGTH = 26;
 
-bool is_valid_key(string s);
+bool is_valid_key(string key);
 void encrypt_text(string plaintext, string key);
 
 int main(int argc, string argv[])
@@ -36,9 +36,9 @@ int main(int argc, string argv[])
     return STATUS_SUCCESS;
 }
 
-bool is_valid_key(string s)
+bool is_valid_key(string key)
 {
-    if(strlen(s) != KEY_LENGTH)
+    if(strlen(key) != KEY_LENGTH)
     {
         printf("Key must be %d characters.\n", KEY_LENGTH);
     }
