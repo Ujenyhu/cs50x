@@ -47,7 +47,6 @@ bool is_valid_key(string key)
     int letter_counts[KEY_LENGTH] = {0};
     for(int i = 0; i < KEY_LENGTH; i++)
     {
-        // Every character must be alphabetical
         if (!isalpha(key[i]))
         {
             printf("Key must contain only alphabetical characters.\n");
