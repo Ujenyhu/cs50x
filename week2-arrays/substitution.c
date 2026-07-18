@@ -27,9 +27,6 @@ int main(int argc, string argv[])
         return STATUS_ERROR;
     }
 
-    //Convert the string argument to an integer primitive
-    int key = atoi(argv[1]);
-
     string plaintext = get_string("plaintext:  ");
 
     printf("ciphertext: ");
